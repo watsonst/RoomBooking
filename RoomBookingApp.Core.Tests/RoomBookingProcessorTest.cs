@@ -1,30 +1,32 @@
-﻿using Shouldly;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RoomBookingApp.Core.Models;
+using RoomBookingApp.Core.Processors;
+using Shouldly;
 
 namespace RoomBookingApp.Core
 {
     public class RoomBookingProcessorTest
     {
+        private RoomBookingRequestProcessor _processor;
+
+        public RoomBookingProcessorTest()
+        {
+            //Arrange one time in constructor and use arranged object everywhere else
+            _processor = new RoomBookingRequestProcessor();
+        }
+
         [Fact]
         public void Should_Return_Room_Booking_Responce_With_Request_Values()
         {
             //Arrange
-            var request = new RoomBookingRequest //request class/sample data
+            var request = new RoomBookingRequest
             {
                 FullName = "Test Name",
                 Email = "test@request.com",
                 Date = new DateTime(2023, 10, 20)
             };
 
-            var processor = new RoomBookingRequestProcessor(); //object of what we need to test
-
             //Act
-            RoomBookingResult result = processor.BookRoom(request); //Calling method and getting result 
+            RoomBookingResult result = _processor.BookRoom(request);
 
             //Assert
             Assert.NotNull(result);
@@ -39,6 +41,20 @@ namespace RoomBookingApp.Core
             //result.Date.ShouldBe(request.Date);
 
 
+        }
+
+        [Fact]
+        public void Should_Throw_Exception_For_Null_Request()
+        {
+            //No Arragne because the request should be null
+
+            var exception = Assert.Throws<ArgumentNullException>(() => _processor.BookRoom(null));
+
+            //Assert
+            exception.ParamName.ShouldBe("bookingRequest");
+
+            //Assert.Throws<ArgumentNullException>(() => processor.BookRoom(null));
+            //Should.Throw<ArgumentNullException>(() => processor.BookRoom(null));
         }
     }
 }

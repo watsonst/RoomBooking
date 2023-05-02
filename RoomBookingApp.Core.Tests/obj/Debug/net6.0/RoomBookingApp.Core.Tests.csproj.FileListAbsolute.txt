@@ -145,3 +145,6 @@ C:\repos\RoomBookingApp\RoomBookingApp.Core.Tests\obj\Debug\net6.0\refint\RoomBo
 C:\repos\RoomBookingApp\RoomBookingApp.Core.Tests\obj\Debug\net6.0\RoomBookingApp.Core.Tests.pdb
 C:\repos\RoomBookingApp\RoomBookingApp.Core.Tests\obj\Debug\net6.0\RoomBookingApp.Core.Tests.genruntimeconfig.cache
 C:\repos\RoomBookingApp\RoomBookingApp.Core.Tests\obj\Debug\net6.0\ref\RoomBookingApp.Core.Tests.dll
+C:\repos\RoomBookingApp\RoomBookingApp.Core.Tests\bin\Debug\net6.0\CoverletSourceRootsMapping
+C:\repos\RoomBookingApp\RoomBookingApp.Core.Tests\bin\Debug\net6.0\RoomBookingApp.Core.dll
+C:\repos\RoomBookingApp\RoomBookingApp.Core.Tests\bin\Debug\net6.0\RoomBookingApp.Core.pdb
