@@ -23,7 +23,7 @@ namespace RoomBookingApp.Core
                 Date = new DateTime(2023, 10, 20)
             };
 
-            _availableRooms =new List<Room>() { new Room() };
+            _availableRooms =new List<Room>() { new Room() { Id = 1 } };
             _roomBookingServiceMock = new Mock<IRoomBookingService>();
             _roomBookingServiceMock.Setup(r => r.GetAvailableRooms(_request.Date)).Returns(_availableRooms); //returns the list, so needs .Returns() in setup
             _processor = new RoomBookingRequestProcessor(_roomBookingServiceMock.Object);
@@ -81,6 +81,7 @@ namespace RoomBookingApp.Core
             savedBooking.FullName.ShouldBe(_request.FullName);
             savedBooking.Email.ShouldBe(_request.Email);
             savedBooking.Date.ShouldBe(_request.Date);
+            savedBooking.RoomId.ShouldBe(_availableRooms.First().Id);
         }
 
         [Fact]
