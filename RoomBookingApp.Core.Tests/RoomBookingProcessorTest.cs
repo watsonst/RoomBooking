@@ -12,6 +12,7 @@ namespace RoomBookingApp.Core
         private RoomBookingRequestProcessor _processor;
         private RoomBookingRequest _request;
         private Mock<IRoomBookingService> _roomBookingServiceMock;
+        private List<Room> _availableRooms;
 
         public RoomBookingProcessorTest()
         {
@@ -22,7 +23,9 @@ namespace RoomBookingApp.Core
                 Date = new DateTime(2023, 10, 20)
             };
 
-            _roomBookingServiceMock = new Mock<IRoomBookingService>(); //need to inject this service into our processor
+            _availableRooms =new List<Room>() { new Room() };
+            _roomBookingServiceMock = new Mock<IRoomBookingService>();
+            _roomBookingServiceMock.Setup(r => r.GetAvailableRooms(_request.Date)).Returns(_availableRooms); //returns the list, so needs .Returns() in setup
             _processor = new RoomBookingRequestProcessor(_roomBookingServiceMock.Object);
         }
 
@@ -65,20 +68,28 @@ namespace RoomBookingApp.Core
         public void Should_Save_Room_Booking_Request()
         {
             RoomBooking savedBooking = null;
-            _roomBookingServiceMock.Setup(q => q.Save(It.IsAny<RoomBooking>())) //How to do want the method to behave. What should this method so in a testing environment. Any object of type RoomBooking is allowed
+            _roomBookingServiceMock.Setup(q => q.Save(It.IsAny<RoomBooking>())) //Save just carries out an action, no .Returns() needed in setup
                 .Callback<RoomBooking>(booking =>
                 {
                     savedBooking = booking;
-                }); //savedBooking should get the value whatever is being passed in from Save and set that to booking var in test 
+                }); 
 
             _processor.BookRoom(_request);
-
             _roomBookingServiceMock.Verify(q => q.Save(It.IsAny<RoomBooking>()), Times.Once); //verify that the save method was called once.
 
             savedBooking.ShouldNotBeNull();
             savedBooking.FullName.ShouldBe(_request.FullName);
             savedBooking.Email.ShouldBe(_request.Email);
             savedBooking.Date.ShouldBe(_request.Date);
+        }
+
+        [Fact]
+        public void Should_Not_Save_Room_Booking_Request_If_None_Available()
+        {
+            _availableRooms.Clear(); //"clear" the list of rooms because it is testing that there are NO avialable rooms
+            _processor.BookRoom(_request);
+            //Verify the Assertion in this case
+            _roomBookingServiceMock.Verify(q => q.Save(It.IsAny<RoomBooking>()), Times.Never); //because there are no available rooms save is never called
 
         }
     }
