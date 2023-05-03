@@ -21,16 +21,24 @@ namespace RoomBookingApp.Core.Processors
             }
 
             var availableRooms = _roomBookingService.GetAvailableRooms(bookingRequest.Date);
+            var result = CreateRoomBookingObject<RoomBookingResult>(bookingRequest); //build result here because now we have the flag so some type of result will always be returned now
 
-            if (availableRooms.Any())
+            if (availableRooms.Any()) //business logic
             {
                 var room = availableRooms.First();
-                var roomBooking = CreateRoomBookingObject<RoomBooking>(bookingRequest); //type now <RoomBooking> not <RoomBookingResult>
+                var roomBooking = CreateRoomBookingObject<RoomBooking>(bookingRequest); 
                 roomBooking.RoomId = room.Id;
                 _roomBookingService.Save(roomBooking);
+
+                result.RoomBookingId = roomBooking.Id;
+                result.Flag = Emuns.BookingResultFlag.Success; //after save because if save fails then can't be a success
+            }
+            else
+            {
+                result.Flag = Emuns.BookingResultFlag.Failure;
             }
 
-            return CreateRoomBookingObject<RoomBookingResult>(bookingRequest);
+            return result;
         }
 
         private static TRoomBooking CreateRoomBookingObject<TRoomBooking>(RoomBookingRequest bookingRequest) where TRoomBooking 

@@ -1,6 +1,7 @@
 ﻿using Moq;
 using RoomBookingApp.Core.DataServices;
 using RoomBookingApp.Core.Domain;
+using RoomBookingApp.Core.Emuns;
 using RoomBookingApp.Core.Models;
 using RoomBookingApp.Core.Processors;
 using Shouldly;
@@ -23,7 +24,7 @@ namespace RoomBookingApp.Core
                 Date = new DateTime(2023, 10, 20)
             };
 
-            _availableRooms =new List<Room>() { new Room() { Id = 1 } };
+            _availableRooms = new List<Room>() { new Room() { Id = 1 } };
             _roomBookingServiceMock = new Mock<IRoomBookingService>();
             _roomBookingServiceMock.Setup(r => r.GetAvailableRooms(_request.Date)).Returns(_availableRooms); //returns the list, so needs .Returns() in setup
             _processor = new RoomBookingRequestProcessor(_roomBookingServiceMock.Object);
@@ -72,7 +73,7 @@ namespace RoomBookingApp.Core
                 .Callback<RoomBooking>(booking =>
                 {
                     savedBooking = booking;
-                }); 
+                });
 
             _processor.BookRoom(_request);
             _roomBookingServiceMock.Verify(q => q.Save(It.IsAny<RoomBooking>()), Times.Once); //verify that the save method was called once.
@@ -93,5 +94,43 @@ namespace RoomBookingApp.Core
             _roomBookingServiceMock.Verify(q => q.Save(It.IsAny<RoomBooking>()), Times.Never); //because there are no available rooms save is never called
 
         }
+
+        [Theory]
+        [InlineData(BookingResultFlag.Failure, false)] //data scenario to the test beforehand. Auto infer the scenario
+        [InlineData(BookingResultFlag.Success, true)]
+        public void Should_Return_SuccessOrFailure_Flag_In_Results(BookingResultFlag bookingSuccessFlag, bool isAvailable) //data driven test example.Params instead of mocks. Params: is the first value(success) when the second value is that(available)
+        {
+            if (!isAvailable)
+            {
+                _availableRooms.Clear(); //if none available clear the list so that save is never called. Using none available test structure
+            }
+
+            var result = _processor.BookRoom(_request);
+            bookingSuccessFlag.ShouldBe(result.Flag); //flag added to the result object. Emun always defaults to 1st one(success in this case)
+        }
+
+        [Theory]
+        [InlineData(1, true)]
+        [InlineData(null, false)]
+        public void Should_Return_RoomBookingID_In_Result(int? roomBookingID, bool isAvailable) 
+        {
+            if (!isAvailable)
+            {
+                _availableRooms.Clear(); //if none available clear the list so that save is never called.
+            }
+            else
+            {
+                _roomBookingServiceMock.Setup(q => q.Save(It.IsAny<RoomBooking>()))
+                .Callback<RoomBooking>(booking =>
+                {
+                    booking.Id = roomBookingID.Value;
+                });
+            }
+
+            var result = _processor.BookRoom(_request);
+            roomBookingID.ShouldBe(result.RoomBookingId);
+        }
+
+
     }
 }
