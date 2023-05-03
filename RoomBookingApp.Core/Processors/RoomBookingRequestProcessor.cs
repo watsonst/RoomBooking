@@ -1,11 +1,16 @@
-﻿using RoomBookingApp.Core.Models;
+﻿using RoomBookingApp.Core.DataServices;
+using RoomBookingApp.Core.Domain;
+using RoomBookingApp.Core.Models;
 
 namespace RoomBookingApp.Core.Processors
 {
     public class RoomBookingRequestProcessor
     {
-        public RoomBookingRequestProcessor()
+        private readonly IRoomBookingService _roomBookingService;
+
+        public RoomBookingRequestProcessor(IRoomBookingService roomBookingService)
         {
+            this._roomBookingService = roomBookingService;
         }
 
         public RoomBookingResult BookRoom(RoomBookingRequest bookingRequest)
@@ -15,12 +20,22 @@ namespace RoomBookingApp.Core.Processors
                 throw new ArgumentNullException(nameof(bookingRequest));
             }
 
-            return new RoomBookingResult
+            _roomBookingService.Save(CreateRoomBookingObject<RoomBooking>(bookingRequest)); //this replaces previous explicit declarations
+
+            return CreateRoomBookingObject<RoomBookingResult>(bookingRequest);
+  
+        }
+
+        private static TRoomBooking CreateRoomBookingObject<TRoomBooking>(RoomBookingRequest bookingRequest) where TRoomBooking 
+            : RoomBookingBase, new() //anything inheriting from roomBookBase can be used an a generic here
+        {
+            return new TRoomBooking
             {
                 FullName = bookingRequest.FullName,
                 Email = bookingRequest.Email,
                 Date = bookingRequest.Date,
             };
         }
+        
     }
 }
