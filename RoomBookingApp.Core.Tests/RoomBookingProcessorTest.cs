@@ -1,10 +1,11 @@
 ﻿using Moq;
 using RoomBookingApp.Core.DataServices;
-using RoomBookingApp.Core.Domain;
 using RoomBookingApp.Core.Emuns;
 using RoomBookingApp.Core.Models;
 using RoomBookingApp.Core.Processors;
+using RoomBookingApp.Domain;
 using Shouldly;
+using Xunit;
 
 namespace RoomBookingApp.Core
 {
@@ -112,7 +113,7 @@ namespace RoomBookingApp.Core
         [Theory]
         [InlineData(1, true)]
         [InlineData(null, false)]
-        public void Should_Return_RoomBookingID_In_Result(int? roomBookingID, bool isAvailable) 
+        public void Should_Return_RoomBookingID_In_Result(int? roomBookingID, bool isAvailable)
         {
             if (!isAvailable)
             {

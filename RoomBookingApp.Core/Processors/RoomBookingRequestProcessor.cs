@@ -1,6 +1,7 @@
 ﻿using RoomBookingApp.Core.DataServices;
-using RoomBookingApp.Core.Domain;
 using RoomBookingApp.Core.Models;
+using RoomBookingApp.Domain;
+using RoomBookingApp.Domain.BaseModels;
 
 namespace RoomBookingApp.Core.Processors
 {
@@ -15,8 +16,8 @@ namespace RoomBookingApp.Core.Processors
 
         public RoomBookingResult BookRoom(RoomBookingRequest bookingRequest)
         {
-            if(bookingRequest == null)
-            {   
+            if (bookingRequest == null)
+            {
                 throw new ArgumentNullException(nameof(bookingRequest));
             }
 
@@ -26,7 +27,7 @@ namespace RoomBookingApp.Core.Processors
             if (availableRooms.Any()) //business logic
             {
                 var room = availableRooms.First();
-                var roomBooking = CreateRoomBookingObject<RoomBooking>(bookingRequest); 
+                var roomBooking = CreateRoomBookingObject<RoomBooking>(bookingRequest);
                 roomBooking.RoomId = room.Id;
                 _roomBookingService.Save(roomBooking);
 
@@ -41,7 +42,7 @@ namespace RoomBookingApp.Core.Processors
             return result;
         }
 
-        private static TRoomBooking CreateRoomBookingObject<TRoomBooking>(RoomBookingRequest bookingRequest) where TRoomBooking 
+        private static TRoomBooking CreateRoomBookingObject<TRoomBooking>(RoomBookingRequest bookingRequest) where TRoomBooking
             : RoomBookingBase, new() //anything inheriting from roomBookBase can be used an a generic here
         {
             return new TRoomBooking
@@ -51,6 +52,6 @@ namespace RoomBookingApp.Core.Processors
                 Date = bookingRequest.Date,
             };
         }
-        
+
     }
 }

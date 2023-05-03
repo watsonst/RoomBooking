@@ -10,3 +10,6 @@ C:\repos\RoomBookingApp\RoomBookingApp.Core\obj\Debug\net6.0\RoomBookingApp.Core
 C:\repos\RoomBookingApp\RoomBookingApp.Core\obj\Debug\net6.0\refint\RoomBookingApp.Core.dll
 C:\repos\RoomBookingApp\RoomBookingApp.Core\obj\Debug\net6.0\RoomBookingApp.Core.pdb
 C:\repos\RoomBookingApp\RoomBookingApp.Core\obj\Debug\net6.0\ref\RoomBookingApp.Core.dll
+C:\repos\RoomBookingApp\RoomBookingApp.Core\bin\Debug\net6.0\RoomBookingApp.Domain.dll
+C:\repos\RoomBookingApp\RoomBookingApp.Core\bin\Debug\net6.0\RoomBookingApp.Domain.pdb
+C:\repos\RoomBookingApp\RoomBookingApp.Core\obj\Debug\net6.0\RoomBookingApp.Core.csproj.CopyComplete

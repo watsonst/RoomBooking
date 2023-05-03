@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Q/xF1NqFccmnzt97b8QOhaMuZx1Xth7acQLLZW6DKJwCAabVnrhAQfgjwedfQbeDJMBpo64LfnMFRpz/VEo5uQ==",
+  "dgSpecHash": "PMLQdaztvt0j6nJZS+kUHB6gzVG0OOajgixnBkxVR0VhEtZjbAhu7FsAnxbTyTYGGspLG/7FqcK8i/18efl0OQ==",
   "success": true,
   "projectFilePath": "C:\\repos\\RoomBookingApp\\RoomBookingApp.Core.Tests\\RoomBookingApp.Core.Tests.csproj",
   "expectedPackageFiles": [
