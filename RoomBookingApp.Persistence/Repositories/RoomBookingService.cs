@@ -11,6 +11,7 @@ namespace RoomBookingApp.Persistence.Repositories
         {
             this._context = context;
         }
+
         public IEnumerable<Room> GetAvailableRooms(DateTime date)
         {
             var availableRooms = _context.Rooms.Where(q => !q.RoomBookings.Any(x => x.Date == date)).ToList(); //! = rooms that do NOT have any bookings for that date

@@ -9,11 +9,8 @@ using System.Threading.Tasks;
 
 namespace RoomBookingApp.Persistence.Tests
 {
-    public class RoomBookingServiceTest //integration tests. How does the app interact with the orm/library that communicates to database
+    public class RoomBookingServiceTest //integration tests. How does the app interact with the orm/library(EF) that communicates to database
     {
-
-
-
         [Fact]
         public void Should_Return_Available_Rooms()
         {
