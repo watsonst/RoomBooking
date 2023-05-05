@@ -5,6 +5,7 @@ namespace RoomBookingApp.Persistence
 {
     public class RoomBookingAppDbContext : DbContext
     {
+        public RoomBookingAppDbContext() { }
         public RoomBookingAppDbContext(DbContextOptions<RoomBookingAppDbContext> options) : base(options)
         {
 
@@ -23,5 +24,13 @@ namespace RoomBookingApp.Persistence
                 new Room { Id = 3, Name = "Conference Room C" }
                 );
         }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlite("DataSource=:memory:");
+            }
+        }
+
     }
 }

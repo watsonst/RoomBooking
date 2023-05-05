@@ -1,4 +1,5 @@
 C:\repos\RoomBookingApp\RoomBookingApp.Persistence\bin\Debug\net6.0\RoomBookingApp.Persistence.deps.json
+C:\repos\RoomBookingApp\RoomBookingApp.Persistence\bin\Debug\net6.0\RoomBookingApp.Persistence.runtimeconfig.json
 C:\repos\RoomBookingApp\RoomBookingApp.Persistence\bin\Debug\net6.0\RoomBookingApp.Persistence.dll
 C:\repos\RoomBookingApp\RoomBookingApp.Persistence\bin\Debug\net6.0\RoomBookingApp.Persistence.pdb
 C:\repos\RoomBookingApp\RoomBookingApp.Persistence\bin\Debug\net6.0\RoomBookingApp.Core.dll
@@ -14,4 +15,5 @@ C:\repos\RoomBookingApp\RoomBookingApp.Persistence\obj\Debug\net6.0\RoomBookingA
 C:\repos\RoomBookingApp\RoomBookingApp.Persistence\obj\Debug\net6.0\RoomBookingApp.Persistence.dll
 C:\repos\RoomBookingApp\RoomBookingApp.Persistence\obj\Debug\net6.0\refint\RoomBookingApp.Persistence.dll
 C:\repos\RoomBookingApp\RoomBookingApp.Persistence\obj\Debug\net6.0\RoomBookingApp.Persistence.pdb
+C:\repos\RoomBookingApp\RoomBookingApp.Persistence\obj\Debug\net6.0\RoomBookingApp.Persistence.genruntimeconfig.cache
 C:\repos\RoomBookingApp\RoomBookingApp.Persistence\obj\Debug\net6.0\ref\RoomBookingApp.Persistence.dll
